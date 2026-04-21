@@ -1,0 +1,233 @@
+/* -----------------------------------
+   Base Layout
+----------------------------------- */
+.ia-accordion {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Direction by class (base, desktop fallback) */
+.ia-horizontal { flex-direction: row; }
+.ia-vertical   { flex-direction: column; }
+
+/* Accordion Items */
+.ia-item {
+    flex: 1;
+    min-width: 40px;
+    min-height: 40px;
+    cursor: pointer;
+    transition: flex 0.45s ease;
+    will-change: flex;
+}
+
+.ia-item.is-active {
+    flex: 4;
+}
+
+.ia-item-inner {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+/* Clickable link wrapper */
+.ia-item-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+.ia-item-link:hover {
+    text-decoration: none;
+}
+
+/* -----------------------------------
+   Image Wrapper
+----------------------------------- */
+.ia-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    opacity: var(--ia-image-opacity, 1);
+    transition: all 0.3s ease;
+}
+
+/* Background sizing based on orientation */
+/* Horizontal: image height follows container, width auto */
+/* Vertical: image width follows container, height auto */
+.ia-horizontal .ia-item .ia-image { background-size: auto 100%; }
+.ia-vertical   .ia-item .ia-image { background-size: 100% auto; }
+
+/* -----------------------------------
+   Focus classes
+----------------------------------- */
+.ia-focus-center       .ia-image { background-position: center center; }
+.ia-focus-top          .ia-image { background-position: center top; }
+.ia-focus-bottom       .ia-image { background-position: center bottom; }
+.ia-focus-left         .ia-image { background-position: left center; }
+.ia-focus-right        .ia-image { background-position: right center; }
+.ia-focus-top_left     .ia-image { background-position: left top; }
+.ia-focus-top_right    .ia-image { background-position: right top; }
+.ia-focus-bottom_left  .ia-image { background-position: left bottom; }
+.ia-focus-bottom_right .ia-image { background-position: right bottom; }
+
+/* -----------------------------------
+   Overlay
+----------------------------------- */
+.ia-overlay {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 16px;
+    box-sizing: border-box;
+
+    pointer-events: auto;
+
+    transition: all 0.3s ease;
+}
+
+/* -----------------------------------
+   Horizontal alignment – normal
+----------------------------------- */
+.ia-item.ia-text-left   .ia-overlay { text-align: left; }
+.ia-item.ia-text-center .ia-overlay { text-align: center; }
+.ia-item.ia-text-right  .ia-overlay { text-align: right; }
+
+/* Horizontal alignment – hover */
+.ia-item.ia-text-hover-left:hover   .ia-overlay { text-align: left; }
+.ia-item.ia-text-hover-center:hover .ia-overlay { text-align: center; }
+.ia-item.ia-text-hover-right:hover  .ia-overlay { text-align: right; }
+
+/* -----------------------------------
+   Vertical alignment – normal
+----------------------------------- */
+.ia-item.ia-align-flex-start     .ia-overlay { justify-content: flex-start; }
+.ia-item.ia-align-center         .ia-overlay { justify-content: center; }
+.ia-item.ia-align-flex-end       .ia-overlay { justify-content: flex-end; }
+.ia-item.ia-align-space-between  .ia-overlay { justify-content: space-between; }
+.ia-item.ia-align-space-around   .ia-overlay { justify-content: space-around; }
+.ia-item.ia-align-space-evenly   .ia-overlay { justify-content: space-evenly; }
+
+/* Vertical alignment – hover */
+.ia-item.ia-align-hover-flex-start:hover    .ia-overlay { justify-content: flex-start; }
+.ia-item.ia-align-hover-center:hover        .ia-overlay { justify-content: center; }
+.ia-item.ia-align-hover-flex-end:hover      .ia-overlay { justify-content: flex-end; }
+.ia-item.ia-align-hover-space-between:hover .ia-overlay { justify-content: space-between; }
+.ia-item.ia-align-hover-space-around:hover  .ia-overlay { justify-content: space-around; }
+.ia-item.ia-align-hover-space-evenly:hover  .ia-overlay { justify-content: space-evenly; }
+
+/* -----------------------------------
+   Title & Description switching
+----------------------------------- */
+.ia-title-normal,
+.ia-desc-normal {
+    display: block !important;
+}
+
+.ia-title-hover,
+.ia-desc-hover {
+    display: none !important;
+}
+
+.ia-item:hover .ia-title-normal,
+.ia-item:hover .ia-desc-normal {
+    display: none !important;
+}
+
+.ia-item:hover .ia-title-hover,
+.ia-item:hover .ia-desc-hover {
+    display: block !important;
+}
+
+/* -----------------------------------
+   Typography
+----------------------------------- */
+.ia-title {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.ia-desc {
+    font-size: 0.9em;
+}
+
+/* -----------------------------------
+   Empty State
+----------------------------------- */
+.ia-accordion.ia-empty {
+    display: block;
+    height: auto;
+    min-height: 40px;
+}
+
+/* -----------------------------------
+   Responsive Direction Overrides
+   Use ia-desktop-*, ia-tablet-*, ia-mobile-* classes
+   to override base direction and background size.
+----------------------------------- */
+
+/* Desktop */
+@media (min-width: 1025px) {
+    .ia-accordion.ia-desktop-horizontal {
+        flex-direction: row;
+    }
+    .ia-accordion.ia-desktop-vertical {
+        flex-direction: column;
+    }
+
+    .ia-accordion.ia-desktop-horizontal .ia-item .ia-image {
+        background-size: auto 100%;
+    }
+    .ia-accordion.ia-desktop-vertical .ia-item .ia-image {
+        background-size: 100% auto;
+    }
+}
+
+/* Tablet */
+@media (max-width: 1024px) and (min-width: 768px) {
+    .ia-accordion.ia-tablet-horizontal {
+        flex-direction: row;
+    }
+    .ia-accordion.ia-tablet-vertical {
+        flex-direction: column;
+    }
+
+    .ia-accordion.ia-tablet-horizontal .ia-item .ia-image {
+        background-size: auto 100%;
+    }
+    .ia-accordion.ia-tablet-vertical .ia-item .ia-image {
+        background-size: 100% auto;
+    }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    .ia-accordion.ia-mobile-horizontal {
+        flex-direction: row;
+    }
+    .ia-accordion.ia-mobile-vertical {
+        flex-direction: column;
+    }
+
+    .ia-accordion.ia-mobile-horizontal .ia-item .ia-image {
+        background-size: auto 100%;
+    }
+    .ia-accordion.ia-mobile-vertical .ia-item .ia-image {
+        background-size: 100% auto;
+    }
+}
